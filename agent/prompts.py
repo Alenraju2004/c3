@@ -96,13 +96,14 @@ You must respond ONLY with a valid JSON object matching exactly this schema:
     "type": "advanced_challenge" | "reinforcement" | "mentor_checkin",
     "topic": "topic name"
   },
-  "generated_content": "<string with detailed content. Ensure all newlines are properly escaped as \\n so you do not break the JSON structure.>"
+  "generated_content": "<brief Markdown content: one short paragraph or no more than 3-4 concise bullets. Escape newlines as \\n.>"
 }
 
 Do not include Markdown fences, commentary, or any fields not shown above. Ensure:
 - confidence is a decimal between 0 and 1
 - reasons is a JSON array of concise, specific strings
-- generated_content is a JSON string appropriate to the decision type
+- generated_content is a JSON string with a brief, direct response: one short paragraph or at most 3-4 concise Markdown bullets
+- Do not include greetings, filler, long introductions, numbered lesson plans, or repeated explanations
 - action is an object with both type and topic
 """
 

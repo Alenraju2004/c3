@@ -27,7 +27,7 @@ LEARNER_PROFILES = [
     {
         "student_id": "STU002", "name": "Jordan Kim", "course": "Python Programming",
         "current_topic": "Recursion", "recent_scores": [82, 76, 68, 62],
-        "average_score": 72.0, "weak_topics": ["Recursion"], "attempts_current_topic": 3,
+        "average_score": 72.0, "weak_topics": [], "attempts_current_topic": 3,
         "avg_time_minutes": 31.0, "help_requests": 3, "current_streak_days": 2,
         "longest_streak_days": 10, "previous_decisions": ["advance", "reinforce"],
         "reinforcement_count": 1, "certification_progress": 0.55, "deadline_days": 25,
@@ -35,7 +35,7 @@ LEARNER_PROFILES = [
     {
         "student_id": "STU003", "name": "Casey Morgan", "course": "Data Structures",
         "current_topic": "Trees", "recent_scores": [55, 62, 48, 51],
-        "average_score": 54.0, "weak_topics": ["Recursion", "Trees"], "attempts_current_topic": 4,
+        "average_score": 54.0, "weak_topics": [], "attempts_current_topic": 4,
         "avg_time_minutes": 40.0, "help_requests": 5, "current_streak_days": 1,
         "longest_streak_days": 8, "previous_decisions": ["advance", "reinforce", "reinforce"],
         "reinforcement_count": 2, "certification_progress": 0.35, "deadline_days": 10,
@@ -43,7 +43,7 @@ LEARNER_PROFILES = [
     {
         "student_id": "STU004", "name": "Morgan Lee", "course": "Python Programming",
         "current_topic": "Loops", "recent_scores": [65, 70, 75, 78],
-        "average_score": 72.0, "weak_topics": ["Loops"], "attempts_current_topic": 3,
+        "average_score": 72.0, "weak_topics": [], "attempts_current_topic": 3,
         "avg_time_minutes": 22.0, "help_requests": 1, "current_streak_days": 4,
         "longest_streak_days": 7, "previous_decisions": ["reinforce", "reinforce"],
         "reinforcement_count": 2, "certification_progress": 0.50, "deadline_days": 20,
@@ -59,7 +59,7 @@ LEARNER_PROFILES = [
     {
         "student_id": "STU006", "name": "Sam Wilson", "course": "Web Development",
         "current_topic": "CSS Layout", "recent_scores": [92, 61, 88, 57],
-        "average_score": 74.5, "weak_topics": ["CSS Layout"], "attempts_current_topic": 2,
+        "average_score": 74.5, "weak_topics": [], "attempts_current_topic": 2,
         "avg_time_minutes": 20.0, "help_requests": 2, "current_streak_days": 5,
         "longest_streak_days": 9, "previous_decisions": ["reinforce"],
         "reinforcement_count": 1, "certification_progress": 0.41, "deadline_days": 28,
@@ -67,7 +67,7 @@ LEARNER_PROFILES = [
     {
         "student_id": "STU007", "name": "Taylor Brooks", "course": "JavaScript",
         "current_topic": "Async Programming", "recent_scores": [48, 52, 59, 64],
-        "average_score": 55.75, "weak_topics": ["Async Programming"], "attempts_current_topic": 5,
+        "average_score": 55.75, "weak_topics": [], "attempts_current_topic": 5,
         "avg_time_minutes": 44.0, "help_requests": 4, "current_streak_days": 3,
         "longest_streak_days": 6, "previous_decisions": ["reinforce", "reinforce"],
         "reinforcement_count": 2, "certification_progress": 0.29, "deadline_days": 18,
@@ -99,7 +99,7 @@ LEARNER_PROFILES = [
     {
         "student_id": "STU011", "name": "Avery Smith", "course": "Cloud Fundamentals",
         "current_topic": "Networking", "recent_scores": [58, 64, 71, 77],
-        "average_score": 67.5, "weak_topics": ["Networking"], "attempts_current_topic": 3,
+        "average_score": 67.5, "weak_topics": [], "attempts_current_topic": 3,
         "avg_time_minutes": 33.0, "help_requests": 2, "current_streak_days": 7,
         "longest_streak_days": 12, "previous_decisions": ["reinforce"],
         "reinforcement_count": 1, "certification_progress": 0.38, "deadline_days": 22,
@@ -114,7 +114,7 @@ LEARNER_PROFILES = [
     },
     {
         "student_id": "STU013", "name": "Robin Garcia", "course": "Java", "current_topic": "Interfaces",
-        "recent_scores": [67, 73, 69, 76], "average_score": 71.25, "weak_topics": ["Interfaces"],
+        "recent_scores": [67, 73, 69, 76], "average_score": 71.25, "weak_topics": [],
         "attempts_current_topic": 3, "avg_time_minutes": 26.0, "help_requests": 3,
         "current_streak_days": 4, "longest_streak_days": 9, "previous_decisions": ["reinforce", "reinforce"],
         "reinforcement_count": 2, "certification_progress": 0.44, "deadline_days": 27,
@@ -130,7 +130,7 @@ LEARNER_PROFILES = [
     {
         "student_id": "STU015", "name": "Reese Thompson", "course": "Python Programming",
         "current_topic": "Object-Oriented Design", "recent_scores": [61, 60, 58, 55],
-        "average_score": 58.5, "weak_topics": ["Object-Oriented Design"], "attempts_current_topic": 4,
+        "average_score": 58.5, "weak_topics": [], "attempts_current_topic": 4,
         "avg_time_minutes": 38.0, "help_requests": 6, "current_streak_days": 1,
         "longest_streak_days": 5, "previous_decisions": ["reinforce", "reinforce", "mentor"],
         "reinforcement_count": 2, "certification_progress": 0.31, "deadline_days": 12,
@@ -149,8 +149,9 @@ def status_for(learner):
 
 def initialize_state():
     """Seed the mock database once and keep it alive across Streamlit reruns."""
-    if "learners" not in st.session_state:
+    if st.session_state.get("learner_data_version") != 2:
         st.session_state.learners = copy.deepcopy(LEARNER_PROFILES)
+        st.session_state.learner_data_version = 2
     if "last_result" not in st.session_state:
         st.session_state.last_result = None
     if "last_learner_id" not in st.session_state:
@@ -179,6 +180,17 @@ st.markdown(
     [data-testid="stMetricLabel"] { color: #b8c0d4 !important; }
     [data-testid="stVerticalBlockBorderWrapper"] { padding: 0.75rem; }
     [data-testid="stForm"] { padding: 1rem; }
+    .generated-content-card {
+        background: #16263d;
+        border: 1px solid #365477;
+        border-radius: 10px;
+        color: #f4f6fb;
+        line-height: 1.6;
+        padding: 1.25rem 1.4rem;
+        white-space: normal;
+    }
+    .generated-content-card strong, .generated-content-card h1,
+    .generated-content-card h2, .generated-content-card h3 { color: #ffffff; }
     [data-testid="stTextInput"] input, [data-testid="stNumberInput"] input,
     [data-testid="stSelectbox"] > div, [data-testid="stSlider"] {
         color: #f4f6fb !important;
@@ -312,4 +324,5 @@ if st.session_state.last_result and st.session_state.last_learner_id == selected
         for reason in result["reasons"]:
             st.markdown(f"- {reason}")
 
-    st.info(result["generated_content"], icon="💡")
+    with st.container(border=True):
+        st.markdown(result["generated_content"])

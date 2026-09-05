@@ -19,41 +19,13 @@ def execute_reinforce_action(topic: str, learner_name: str, context: Dict[str, A
     attempts = context["learner"]["behavior"]["attempts_current_topic"]
     
     content = f"""
-REINFORCEMENT PRACTICE - {topic.upper()}
-{'='*50}
+**Reinforcement Practice: {topic}**
 
-Hi {learner_name},
+- Review the core concepts and one worked example.
+- Complete 3 targeted practice problems, increasing in difficulty.
+- Check each solution and note one mistake to avoid next time.
 
-I notice you're working on **{topic}** and could use some additional practice to build confidence and mastery.
-
-Your current performance:
-- Your average score on this topic: {avg_score:.1f}%
-- Attempts so far: {attempts}
-
-Here's what we'll focus on:
-
-1. **Core Concepts Review**
-   Review the fundamental principles of {topic}
-   - Start with the most basic examples
-   - Work through step-by-step explanations
-   - Connect to real-world applications
-
-2. **Guided Practice**
-   Work through 3-5 problems with detailed solutions
-   - Each problem increases slightly in difficulty
-   - Explanations provided at each step
-   - Identify common mistakes to avoid
-
-3. **Self-Check Exercises**
-   Practice problems with immediate feedback
-   - Try to solve independently first
-   - Get instant feedback on your approach
-   - Review any incorrect attempts
-
-Take your time with these exercises. The goal is understanding, not speed.
-Remember: asking questions and making mistakes is part of learning!
-
-Ready to begin? Let's master {topic} together.
+Current average: **{avg_score:.1f}%** · Attempts: **{attempts}**
 """
     return content.strip()
 
@@ -74,44 +46,13 @@ def execute_advance_action(topic: str, learner_name: str, context: Dict[str, Any
     certification = context["learner"]["goals"]["certification_progress"]
     
     content = f"""
-ADVANCED CHALLENGE - {topic.upper()}
-{'='*50}
+**Advanced Challenge: {topic}**
 
-Congratulations, {learner_name}!
+- Apply {topic} to one realistic, multi-step problem.
+- Test two edge cases and explain your design choices.
+- Summarize how this connects to the next topic.
 
-Your strong performance on **{topic}** shows you're ready for the next level.
-You're making excellent progress toward your certification goal ({certification*100:.1f}% complete).
-
-Here's your advanced challenge:
-
-1. **Deep Dive Concept**
-   Extend your understanding of {topic} to advanced applications
-   - Real-world problem scenarios
-   - Edge cases and advanced techniques
-   - Connection to related topics
-
-2. **Complex Problem Set**
-   Tackle 3-5 challenging problems
-   - Multi-step solutions required
-   - Application of multiple concepts
-   - Critical thinking and synthesis
-
-3. **Project-Based Learning**
-   Work on a mini-project that uses {topic}
-   - Design and implement a solution
-   - Test edge cases
-   - Reflect on your approach
-
-4. **Next Steps**
-   Prepare for the next topic in the sequence
-   - Overview of what comes next
-   - How {topic} connects to future learning
-   - Preview of key concepts
-
-Your recent scores ({avg_score:.1f}% average) show you have the foundation to succeed here.
-This challenge will deepen your expertise and prepare you for more advanced material.
-
-Let's push your learning forward!
+Average: **{avg_score:.1f}%** · Certification progress: **{certification*100:.0f}%**
 """
     return content.strip()
 
@@ -142,52 +83,13 @@ def execute_mentor_action(topic: str, learner_name: str, context: Dict[str, Any]
     recent_scores_desc = " → ".join(str(int(s)) for s in recent_scores[-3:])
     
     content = f"""
-PERSONALIZED MENTOR CHECK-IN - {topic.upper()}
-{'='*50}
+**Mentor Check-In: {topic}**
 
-Hi {learner_name},
-
-I wanted to reach out personally. I've been following your progress in **{topic}**, 
-and I think we should talk about what's going on.
-
-What I'm observing:
-- Your recent scores: {recent_scores_desc}
-- Current average: {avg_score:.1f}%
-- Help requests: {help_requests}
-- Times we've provided practice support: {reinforcement_count}
-
-Here's what I think might be happening:
+- Recent scores: **{recent_scores_desc}**; current average: **{avg_score:.1f}%**.
+- Help requests: **{help_requests}**; reinforcement sessions: **{reinforcement_count}**.
+- Next step: meet with a mentor to isolate the blocker and work through one example.
 
 {_get_mentor_diagnosis(context)}
-
-Let's work together on this:
-
-1. **Let's Understand the Block**
-   - What part of {topic} is most confusing?
-   - Are there prerequisites you'd like to review?
-   - What would help you most right now?
-
-2. **Personalized Support Plan**
-   - One-on-one explanation of key concepts
-   - Work through problems together
-   - Build confidence step by step
-
-3. **Check-In Schedule**
-   - Regular check-ins (not just after struggling)
-   - Celebrate small wins
-   - Adjust strategy as needed
-
-4. **Resources & Alternatives**
-   - Different learning approaches
-   - Supplementary materials
-   - Peer study options
-
-You're not behind. Sometimes learning has plateaus, and that's completely normal.
-What matters is that we address it together.
-
-I'm here for you. Let's figure this out.
-
-What would be most helpful right now? Feel free to tell me what you need.
 """
     return content.strip()
 
